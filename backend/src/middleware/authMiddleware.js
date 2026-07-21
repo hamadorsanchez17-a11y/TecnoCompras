@@ -30,4 +30,19 @@ const verifyToken = (req, res, next) => {
 
 };
 
-module.exports = verifyToken;
+const verifyAdmin = (req, res, next) => {
+
+    if (req.usuario.rol !== 1) {
+        return res.status(403).json({
+            mensaje: "No tiene permisos para realizar esta acción."
+        });
+    }
+
+    next();
+
+};
+
+module.exports = {
+    verifyToken,
+    verifyAdmin
+};
