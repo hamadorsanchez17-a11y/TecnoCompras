@@ -3,21 +3,33 @@ const cors = require("cors");
 
 const app = express();
 
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const brandRoutes = require("./routes/brandRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const cartDetailRoutes = require("./routes/cartDetailRoutes");
+const orderRoutes=require("./routes/orderRoutes");
+const orderDetailRoutes = require("./routes/orderDetailRoutes");
+const checkoutRoutes = require("./routes/checkoutRoutes");
+
+
 
 app.use(cors());
 app.use(express.json());
 
 // Rutas
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/productos", require("./routes/productRoutes"));
+app.use("/api/auth", authRoutes);
+app.use("/api/productos", productRoutes);
 app.use("/api/categorias", categoryRoutes);
 app.use("/api/marcas", brandRoutes);
 app.use("/api/inventario", inventoryRoutes);
 app.use("/api/carritos", cartRoutes);
+app.use("/api/carrito-detalle", cartDetailRoutes);
+app.use("/api/pedidos",orderRoutes);
+app.use("/api/pedido-detalle", orderDetailRoutes);
+app.use("/api/checkout", checkoutRoutes);
 
 app.get("/", (req, res) => {
     res.send("Bienvenidos a la API de TecnoCompras");
