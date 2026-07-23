@@ -53,3 +53,59 @@ exports.createProduct = async (req, res) => {
     }
 
 };
+
+exports.updateProduct = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const resultado = await productService.updateProduct(id, req.body);
+
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({
+                mensaje: "Producto no encontrado."
+            });
+        }
+
+        res.json({
+            mensaje: "Producto actualizado correctamente."
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            mensaje: error.message
+        });
+
+    }
+
+};
+
+exports.deleteProduct = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const resultado = await productService.deleteProduct(id);
+
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({
+                mensaje: "Producto no encontrado."
+            });
+        }
+
+        res.json({
+            mensaje: "Producto eliminado correctamente."
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            mensaje: error.message
+        });
+
+    }
+
+};

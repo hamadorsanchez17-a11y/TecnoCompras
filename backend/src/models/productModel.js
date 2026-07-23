@@ -87,8 +87,67 @@ const createProduct = async (producto) => {
     return result;
 };
 
+const updateProduct = async (id, producto) => {
+
+    const {
+        id_categoria,
+        id_marca,
+        sku,
+        nombre,
+        descripcion,
+        precio,
+        activo,
+        peso
+    } = producto;
+
+    const [result] = await pool.query(
+        `
+        UPDATE producto
+        SET
+            id_categoria = ?,
+            id_marca = ?,
+            sku = ?,
+            nombre = ?,
+            descripcion = ?,
+            precio = ?,
+            activo = ?,
+            peso = ?
+        WHERE id_producto = ?
+        `,
+        [
+            id_categoria,
+            id_marca,
+            sku,
+            nombre,
+            descripcion,
+            precio,
+            activo,
+            peso,
+            id
+        ]
+    );
+
+    return result;
+};
+
+const deleteProduct = async (id) => {
+
+    const [result] = await pool.query(
+        `
+        DELETE FROM producto
+        WHERE id_producto = ?
+        `,
+        [id]
+    );
+
+    return result;
+
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
-    createProduct
+    createProduct,
+    updateProduct,
+    deleteProduct
 };
