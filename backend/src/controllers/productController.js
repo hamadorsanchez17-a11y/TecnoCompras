@@ -42,7 +42,10 @@ exports.createProduct = async (req, res) => {
 
         const producto = await productService.createProduct(req.body);
 
-        res.status(201).json(producto);
+        res.status(201).json({
+            mensaje: "Producto registrado correctamente.",
+            producto
+        });
 
     } catch (error) {
 

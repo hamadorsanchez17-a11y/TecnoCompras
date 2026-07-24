@@ -30,6 +30,8 @@ const getProductById = async (id) => {
     const [rows] = await pool.query(`
         SELECT
             p.id_producto,
+            p.id_categoria,
+            p.id_marca,
             p.sku,
             p.nombre,
             p.descripcion,
@@ -48,6 +50,7 @@ const getProductById = async (id) => {
     `, [id]);
 
     return rows[0];
+
 };
 
 const createProduct = async (producto) => {
