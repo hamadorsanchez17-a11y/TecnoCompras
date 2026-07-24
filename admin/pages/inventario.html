@@ -75,42 +75,42 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="productos.html" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>Productos</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="categorias.html" class="nav-link">
               <i class="nav-icon fas fa-tags"></i>
               <p>Categorías</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="marcas.html" class="nav-link">
               <i class="nav-icon fas fa-copyright"></i>
               <p>Marcas</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="inventario.html" class="nav-link active">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>Inventario</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="pedidos.html" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>Pedidos</p>
             </a>
           </li>
 
-          <li class="nav-item "id="logout">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="#" id="logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Cerrar sesión</p>
             </a>
@@ -167,8 +167,6 @@
                       <th>Producto</th>
                       <th>Stock Actual</th>
                       <th>Stock Mínimo</th>
-                      <th>Ubicación</th>
-                      <th>Última Actualización</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -211,6 +209,7 @@
           </div>
           <div class="modal-body">
             <form id="formInventario">
+              <input type="hidden" id="idInventario">
               <div class="form-group">
                 <label for="productoInventario">Producto</label>
                 <select class="form-control" id="productoInventario">
@@ -224,10 +223,6 @@
               <div class="form-group">
                 <label for="stockMinimoInventario">Stock Mínimo</label>
                 <input type="number" class="form-control" id="stockMinimoInventario" placeholder="0">
-              </div>
-              <div class="form-group">
-                <label for="ubicacionInventario">Ubicación</label>
-                <input type="text" class="form-control" id="ubicacionInventario" placeholder="Ubicación en bodega">
               </div>
             </form>
           </div>
@@ -275,6 +270,7 @@
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+<!-- TecnoCompras -->
 <script src="../js/config.js"></script>
 <script src="../js/api.js"></script>
 <script src="../js/dashboard.js"></script>

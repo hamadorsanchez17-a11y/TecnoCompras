@@ -75,42 +75,42 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="productos.html" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>Productos</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="categorias.html" class="nav-link active">
               <i class="nav-icon fas fa-tags"></i>
               <p>Categorías</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="marcas.html" class="nav-link">
               <i class="nav-icon fas fa-copyright"></i>
               <p>Marcas</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="inventario.html" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>Inventario</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="pedidos.html" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>Pedidos</p>
             </a>
           </li>
 
-          <li class="nav-item" id="logout">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="#" id="logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Cerrar sesión</p>
             </a>
@@ -166,7 +166,6 @@
                       <th>ID</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th>Estado</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -209,6 +208,7 @@
           </div>
           <div class="modal-body">
             <form id="formCategoria">
+              <input type="hidden" id="idCategoria">
               <div class="form-group">
                 <label for="nombreCategoria">Nombre</label>
                 <input type="text" class="form-control" id="nombreCategoria" placeholder="Nombre de la categoría">
@@ -216,13 +216,6 @@
               <div class="form-group">
                 <label for="descripcionCategoria">Descripción</label>
                 <textarea class="form-control" id="descripcionCategoria" rows="3" placeholder="Descripción de la categoría"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="estadoCategoria">Estado</label>
-                <select class="form-control" id="estadoCategoria">
-                  <option value="activo">Activo</option>
-                  <option value="inactivo">Inactivo</option>
-                </select>
               </div>
             </form>
           </div>
@@ -270,6 +263,7 @@
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+<!-- TecnoCompras -->
 <script src="../js/config.js"></script>
 <script src="../js/api.js"></script>
 <script src="../js/dashboard.js"></script>

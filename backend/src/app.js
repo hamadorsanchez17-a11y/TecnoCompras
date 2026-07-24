@@ -13,6 +13,7 @@ const cartDetailRoutes = require("./routes/cartDetailRoutes");
 const orderRoutes=require("./routes/orderRoutes");
 const orderDetailRoutes = require("./routes/orderDetailRoutes");
 const checkoutRoutes = require("./routes/checkoutRoutes");
+const orderStatusRoutes = require("./routes/orderStatusRoutes");
 
 
 
@@ -30,9 +31,10 @@ app.use("/api/carrito-detalle", cartDetailRoutes);
 app.use("/api/pedidos",orderRoutes);
 app.use("/api/pedido-detalle", orderDetailRoutes);
 app.use("/api/checkout", checkoutRoutes);
+app.use("/api/order-status", orderStatusRoutes);
 
 app.get("/", (req, res) => {
     res.send("Bienvenidos a la API de TecnoCompras");
-});
+});     
 
 module.exports = app;

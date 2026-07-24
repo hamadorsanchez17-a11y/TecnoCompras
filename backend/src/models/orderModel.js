@@ -30,22 +30,33 @@ const getOrderById = async (id) => {
     const [rows] = await pool.query(`
         SELECT
             p.id_pedido,
-            u.id_usuario,
+            p.id_usuario,
+            p.id_direccion,
+            p.id_estado_pedido,
+
             u.nombre,
+            u.correo,
+
             ep.nombre AS estado,
+
             p.fecha,
             p.subtotal,
             p.impuesto,
             p.total
+
         FROM pedido p
+
         INNER JOIN usuario u
             ON p.id_usuario = u.id_usuario
+
         INNER JOIN estado_pedido ep
             ON p.id_estado_pedido = ep.id_estado_pedido
+
         WHERE p.id_pedido = ?;
     `,[id]);
 
     return rows[0];
+
 };
 
 // Crear pedido

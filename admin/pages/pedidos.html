@@ -75,42 +75,42 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="productos.html" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>Productos</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="categorias.html" class="nav-link">
               <i class="nav-icon fas fa-tags"></i>
               <p>Categorías</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="marcas.html" class="nav-link">
               <i class="nav-icon fas fa-copyright"></i>
               <p>Marcas</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="inventario.html" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>Inventario</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="pedidos.html" class="nav-link active">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>Pedidos</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link" id="logout">
+            <a href="#" id="logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Cerrar sesión</p>
             </a>
@@ -189,10 +189,9 @@
           </button>
         </template>
 
-        <!-- Plantilla de referencia para los estados posibles de un pedido -->
-        <!--
-          Estados posibles: Pendiente, Procesando, Enviado, Entregado, Cancelado
-        -->
+        <!-- Nota: #estadoPedido queda vacío a propósito. Según la BD, "estado_pedido"
+             es una tabla catálogo (id_estado_pedido, nombre), por lo que este select
+             debe poblarse dinámicamente con sus <option> desde la API. -->
 
       </div><!-- /.container-fluid -->
     </div>
@@ -210,6 +209,7 @@
           </div>
           <div class="modal-body">
             <form id="formPedido">
+              <input type="hidden" id="idPedido">
 
               <!-- Información del cliente -->
               <h5 class="mb-3">Información del Cliente</h5>
@@ -227,23 +227,27 @@
               <!-- Información del pedido -->
               <h5 class="mb-3">Información del Pedido</h5>
               <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label for="fechaPedido">Fecha</label>
                   <input type="text" class="form-control" id="fechaPedido" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="estadoPedido">Estado</label>
+                  <select class="form-control" id="estadoPedido"></select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="subtotalPedido">Subtotal</label>
+                  <input type="text" class="form-control" id="subtotalPedido" readonly>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="impuestoPedido">Impuesto</label>
+                  <input type="text" class="form-control" id="impuestoPedido" readonly>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="totalPedido">Total</label>
                   <input type="text" class="form-control" id="totalPedido" readonly>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="estadoPedido">Estado</label>
-                  <select class="form-control" id="estadoPedido">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="procesando">Procesando</option>
-                    <option value="enviado">Enviado</option>
-                    <option value="entregado">Entregado</option>
-                    <option value="cancelado">Cancelado</option>
-                  </select>
                 </div>
               </div>
 
@@ -311,6 +315,7 @@
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+<!-- TecnoCompras -->
 <script src="../js/config.js"></script>
 <script src="../js/api.js"></script>
 <script src="../js/dashboard.js"></script>
