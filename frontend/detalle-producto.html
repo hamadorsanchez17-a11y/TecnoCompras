@@ -38,17 +38,19 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="assets/productos/Laptops/PC1.jpg" alt="Laptop HP" /></div>
+                    <div class="col-md-6"><img id="producto-imagen" class="card-img-top mb-5 mb-md-0" src="" alt=""></div>  
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: TC-LAP-01</div>
-                        <h1 class="display-5 fw-bolder">Laptop HP</h1>
+                        <div id="producto-sku" class="small mb-1"></div>
+                        <h1 id="producto-nombre" class="display-5 fw-bolder"></h1>
                         <div class="fs-5 mb-5">
-                            <span>Lps 10000</span>
+                            <span id="producto-precio"></span>
                         </div>
-                        <p class="lead">Excelente laptop ideal para estudiantes y profesionales. Rendimiento óptimo garantizado con diseño elegante y gran durabilidad.</p>
+                        <p id="producto-descripcion" class="lead"></p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <a class="btn btn-outline-dark flex-shrink-0" href="carrito.html">
+                            <a id="btn-agregar-detalle"
+                                    class="btn btn-outline-dark flex-shrink-0"
+                                    href="#">
                                 <i class="bi-cart-fill me-1"></i>
                                 Agregar al carrito
                             </a>
@@ -61,7 +63,7 @@
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Productos relacionados</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div id="productos-relacionados" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
                             <img class="card-img-top" src="assets/productos/Laptops/PC2.jpg" alt="Laptop Asus Rog" />
@@ -106,6 +108,7 @@
         <!-- Mis Scripts de JavaScript -->
         <script src="js/global.js"></script>
         <script src="js/catalogo.js"></script>
+        <script src="js/detalleApi.js"></script>
     </body>
 </html>
 

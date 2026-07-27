@@ -13,12 +13,16 @@ const getAllProducts = async () => {
             p.peso,
             p.fecha_registro,
             c.nombre AS categoria,
-            m.nombre AS marca
+            m.nombre AS marca,
+            i.url AS imagen
         FROM producto p
         INNER JOIN categoria c
             ON p.id_categoria = c.id_categoria
         INNER JOIN marca m
             ON p.id_marca = m.id_marca
+        LEFT JOIN imagen_producto i
+            ON p.id_producto = i.id_producto
+           AND i.principal = TRUE
         ORDER BY p.id_producto;
     `);
 
@@ -40,12 +44,16 @@ const getProductById = async (id) => {
             p.peso,
             p.fecha_registro,
             c.nombre AS categoria,
-            m.nombre AS marca
+            m.nombre AS marca,
+            i.url AS imagen
         FROM producto p
         INNER JOIN categoria c
             ON p.id_categoria = c.id_categoria
         INNER JOIN marca m
             ON p.id_marca = m.id_marca
+        LEFT JOIN imagen_producto i
+            ON p.id_producto = i.id_producto
+           AND i.principal = TRUE
         WHERE p.id_producto = ?
     `, [id]);
 
