@@ -1,5 +1,3 @@
-// js/checkout.js
-
 document.addEventListener('DOMContentLoaded', () => {
     renderizarResumenCheckout();
 
@@ -15,11 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 1. Vaciar el carrito tras finalizar la compra
-            guardarCarrito([]);
-
-            // 2. Redirigir a la página de confirmación
-            window.location.href = 'pedido-confirmado.html';
+            // Redirigir a la página para ingresar la tarjeta de crédito/débito
+            window.location.href = 'formulariopago.html';
         });
     }
 });
