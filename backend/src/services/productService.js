@@ -16,6 +16,10 @@ const getProductById = async (id) => {
     return producto;
 };
 
+const getCatalogProducts = async () => {
+    return await productModel.getCatalogProducts();
+};
+
 const createProduct = async (producto) => {
 
     return await productModel.createProduct(producto);
@@ -32,10 +36,18 @@ const deleteProduct = async (id) => {
     return await productModel.deleteProduct(id);
 };
 
+const uploadProductImage = async (id, rutaImagen) => {
+
+    return await productModel.uploadProductImage(id, rutaImagen);
+
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getCatalogProducts,
+    uploadProductImage
 };

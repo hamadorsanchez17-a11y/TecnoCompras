@@ -8,8 +8,12 @@ const {
     verifyAdmin
 } = require("../middleware/authMiddleware");
 
+const upload = require("../middleware/upload");
+
 // Obtener todos los productos
 router.get("/", productController.getAllProducts);
+
+router.get("/catalogo", productController.getCatalogProducts);
 
 // Obtener un producto por ID
 router.get("/:id", productController.getProductById);
@@ -35,6 +39,14 @@ router.delete(
     verifyToken,
     verifyAdmin,
     productController.deleteProduct
+);
+
+router.post(
+    "/:id/imagen",
+    verifyToken,
+    verifyAdmin,
+    upload.single("imagen"),
+    productController.uploadProductImage
 );
 
 module.exports = router;

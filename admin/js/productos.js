@@ -30,6 +30,7 @@ const peso = document.getElementById("pesoProducto");
 
 const estado = document.getElementById("estadoProducto");
 
+
 async function cargarProductos() {
 
     try {
@@ -74,6 +75,11 @@ async function cargarProductos() {
                             Editar
 
                         </button>
+                        <button
+                                 class="btn btn-info btn-sm imagen"
+                                 data-id="${producto.id_producto}">
+                                 Imagen
+                        </button>     
 
                         <button
                             class="btn btn-danger btn-sm eliminar"
@@ -214,17 +220,19 @@ tablaProductos.addEventListener("click", async (e) => {
     const botonEditar = e.target.closest(".editar");
 
     if (botonEditar) {
-
         await editarProducto(botonEditar.dataset.id);
-
     }
 
     const botonEliminar = e.target.closest(".eliminar");
 
     if (botonEliminar) {
-
         await eliminarProductoConfirmacion(botonEliminar.dataset.id);
+    }
 
+    const botonImagen = e.target.closest(".imagen");
+
+    if (botonImagen) {
+        abrirModalImagen(botonImagen.dataset.id);
     }
 
 });
@@ -320,6 +328,53 @@ async function editarProducto(id) {
     } catch (error) {
 
         console.error(error);
+
+    }
+
+}
+
+function abrirModalImagen(id){
+
+    document.getElementById("idProductoImagen").value = id;
+
+    $("#modalImagen").modal("show");
+
+}
+
+document
+    .getElementById("btnSubirImagen")
+    .addEventListener("click", subirImagen);
+
+async function subirImagen() {
+
+    const archivo =
+        document.getElementById("archivoImagen").files[0];
+
+    if (!archivo) {
+        return alert("Seleccione una imagen.");
+    }
+
+    const id =
+        document.getElementById("idProductoImagen").value;
+
+    try {
+
+        const respuesta =
+            await subirImagenProducto(id, archivo);
+
+        alert(respuesta.mensaje);
+
+        $("#modalImagen").modal("hide");
+
+        document.getElementById("archivoImagen").value = "";
+
+        await cargarProductos();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No fue posible subir la imagen.");
 
     }
 

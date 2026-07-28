@@ -98,6 +98,28 @@ async function eliminarProducto(id) {
 
 }
 
+async function subirImagenProducto(id, archivo) {
+
+    const formData = new FormData();
+
+    formData.append("imagen", archivo);
+
+    const response = await fetch(`${API_URL}/productos/${id}/imagen`, {
+
+        method: "POST",
+
+        headers: {
+            "Authorization": `Bearer ${getToken()}`
+        },
+
+        body: formData
+
+    });
+
+    return await response.json();
+
+}
+
 // ===============================
 // CATEGORÍAS
 // ===============================

@@ -51,6 +51,22 @@ exports.createInventory = async (req, res) => {
 
     try {
 
+        if (req.body.stock_actual < 0) {
+            return res.status(400).json({
+            mensaje: "El stock actual no puede ser negativo."
+            });
+        }
+
+        if (req.body.stock_minimo < 0) {
+            return res.status(400).json({
+            mensaje: "El stock mínimo no puede ser negativo."
+         });
+        }
+        if (req.body.stock_minimo > req.body.stock_actual) {
+            return res.status(400).json({
+            mensaje: "El stock mínimo no puede ser mayor que el stock actual."
+            });
+        }
         await inventoryService.createInventory(req.body);
 
         res.status(201).json({
@@ -71,6 +87,24 @@ exports.createInventory = async (req, res) => {
 exports.updateInventory = async (req, res) => {
 
     try {
+
+        if (req.body.stock_actual < 0) {
+            return res.status(400).json({
+                mensaje: "El stock actual no puede ser negativo."
+            });
+        }
+
+        if (req.body.stock_minimo < 0) {
+            return res.status(400).json({
+                mensaje: "El stock mínimo no puede ser negativo."
+            });
+        }
+
+        if (req.body.stock_minimo > req.body.stock_actual) {
+           return res.status(400).json({
+               mensaje: "El stock mínimo no puede ser mayor que el stock actual."
+           });
+        }       
 
         const { id } = req.params;
 

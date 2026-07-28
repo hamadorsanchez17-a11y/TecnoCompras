@@ -112,10 +112,16 @@ exports.deleteCategory = async (req, res) => {
 
     } catch (error) {
 
+        console.error(error);
+
+        if (error.code === "ER_ROW_IS_REFERENCED_2") {
+            return res.status(400).json({
+                mensaje: "No se puede eliminar la categoría porque tiene productos asociados."
+            });
+        }
+
         res.status(500).json({
-            mensaje: error.message
+            mensaje: "Error interno del servidor."
         });
-
     }
-
 };

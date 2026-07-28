@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!contenedor) return;
 
     try {
-        const respuesta = await fetch("http://localhost:3000/api/productos");
+        const respuesta = await fetch("http://localhost:3000/api/productos/catalogo");
         const productos = await respuesta.json();
 
         contenedor.innerHTML = "";
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="card h-100">
 
                         <img class="card-img-top"
-                             src="${producto.imagen}"
+                             src="http://localhost:3000${producto.imagen}"
                              alt="${producto.nombre}">
 
                         <div class="card-body p-4">

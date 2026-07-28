@@ -112,11 +112,17 @@ exports.deleteBrand = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({
-            mensaje: error.message
-        });
+    console.error(error);
 
+    if (error.code === "ER_ROW_IS_REFERENCED_2") {
+        return res.status(400).json({
+            mensaje: "No se puede eliminar la marca porque tiene productos asociados."
+        });
     }
 
+    res.status(500).json({
+        mensaje: "Error interno del servidor."
+    });
+    }
 };
 

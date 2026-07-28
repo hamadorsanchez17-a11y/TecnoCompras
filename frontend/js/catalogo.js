@@ -1,42 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // A. Lógica para catálogos (index.html y productos.html)
-    const botonesAgregar = document.querySelectorAll('.btn-agregar-carrito');
 
-    botonesAgregar.forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Buscar la tarjeta contenedora (.card) del producto
-            const tarjeta = boton.closest('.card');
-            
-            if (tarjeta) {
-                const tituloElem = tarjeta.querySelector('h5');
-                const titulo = tituloElem.innerText.trim();
-                
-                // Obtenemos solo el texto del precio aislando los nodos de texto
-                // o usando cloneNode sin incluir el titulo <h5>
-                const contenedorTexto = tarjeta.querySelector('.card-body .text-center');
-                const clone = contenedorTexto.cloneNode(true);
-                const h5EnClon = clone.querySelector('h5');
-                if (h5EnClon) h5EnClon.remove(); // Eliminamos el título para dejar solo la línea del precio
-
-                // Extraer solo números y punto decimal
-                const precio = parseFloat(clone.innerText.replace(/[^0-9.]/g, '')) || 0;
-                const imagen = tarjeta.querySelector('.card-img-top').getAttribute('src');
-
-                agregarAlCarrito({
-                    id: titulo, // Usamos el nombre como identificador único
-                    titulo: titulo,
-                    precio: precio,
-                    imagen: imagen,
-                    cantidad: 1
-                });
-
-                // Animación / confirmación visual en el botón
-                darFeedbackBoton(boton);
-            }
-        });
-    });
 
     // B. Lógica para la vista de detalle de producto (detalle-producto.html)
     const btnAgregarDetalle = document.getElementById('btn-agregar-detalle');
