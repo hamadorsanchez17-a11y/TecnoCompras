@@ -1,86 +1,189 @@
+let productosOriginales = [];
+let contenedor = null;
+
 document.addEventListener("DOMContentLoaded", async () => {
-    const contenedor = document.getElementById("product-grid");
+
+    contenedor = document.getElementById("product-grid");
 
     if (!contenedor) return;
 
     try {
-        const respuesta = await fetch("http://localhost:3000/api/productos/catalogo");
-        const productos = await respuesta.json();
 
-        contenedor.innerHTML = "";
+        const respuesta = await fetch("http://localhost:3000/api/productos/catalogo");
+        productosOriginales = await respuesta.json();
 
         const esIndex = window.location.pathname.endsWith("index.html");
 
-        const productosMostrar = esIndex
-            ? productos.slice(0, 4)
-            : productos;
-            
-        productosMostrar.forEach(producto => {
+        const listaInicial = esIndex
+            ? productosOriginales.slice(0, 4)
+            : productosOriginales;
 
-            contenedor.innerHTML += `
-                <div class="col mb-5">
-                    <div class="card h-100">
+        mostrarProductos(listaInicial);
 
-                        <img class="card-img-top"
-                             src="http://localhost:3000${producto.imagen}"
-                             alt="${producto.nombre}">
+        // =========================
+        // BUSCADOR
+        // =========================
+        const inputBuscar = document.getElementById("buscarProducto");
 
-                        <div class="card-body p-4">
-                            <div class="text-center">
+        if (inputBuscar) {
 
-                                <h5 class="fw-bolder">
-                                    ${producto.nombre}
-                                </h5>
+            inputBuscar.addEventListener("input", aplicarFiltros);
 
-                                L ${Number(producto.precio).toLocaleString('es-HN',{
-                                    minimumFractionDigits:2
-                                })}
+        }
 
-                            </div>
-                        </div>
+        // =========================
+        // ORDENAR
+        // =========================
+        const ordenar = document.getElementById("ordenarPrecio");
 
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+        if (ordenar) {
 
-                    <div class="d-grid gap-2">
+            ordenar.addEventListener("change", aplicarFiltros);
 
-                        <a
-                            class="btn btn-outline-primary"
-                            href="detalle-producto.html?id=${producto.id_producto}">
-                            Ver detalle
-                        </a>
+        }
 
-                        <a
-                           class="btn btn-outline-dark btn-agregar-carrito"
-                           data-id="${producto.id_producto}"
-                           href="#">
-                           Agregar al carrito
-                        </a>
+        // =========================
+        // LIMPIAR
+        // =========================
+        const btnLimpiar = document.getElementById("btnLimpiar");
 
-                    </div>
+        if (btnLimpiar) {
 
-                </div>
+            btnLimpiar.addEventListener("click", () => {
 
-                    </div>
-                </div>
-            `;
+                if (inputBuscar) inputBuscar.value = "";
+                if (ordenar) ordenar.value = "";
 
-        });
+                mostrarProductos(productosOriginales);
 
-        activarBotones();
+            });
+
+        }
 
     } catch (error) {
+
         console.error(error);
+
     }
+
 });
 
+function aplicarFiltros() {
 
-function activarBotones(){
+    let lista = [...productosOriginales];
+
+    const inputBuscar = document.getElementById("buscarProducto");
+    const ordenar = document.getElementById("ordenarPrecio");
+
+    // Buscar
+    if (inputBuscar && inputBuscar.value.trim() !== "") {
+
+        const texto = inputBuscar.value.toLowerCase();
+
+        lista = lista.filter(producto =>
+            producto.nombre.toLowerCase().includes(texto)
+        );
+
+    }
+
+    // Ordenar
+    if (ordenar) {
+
+        if (ordenar.value === "asc") {
+
+            lista.sort((a, b) => a.precio - b.precio);
+
+        } else if (ordenar.value === "desc") {
+
+            lista.sort((a, b) => b.precio - a.precio);
+
+        }
+
+    }
+
+    mostrarProductos(lista);
+
+}
+
+function mostrarProductos(listaProductos) {
+
+    contenedor.innerHTML = "";
+
+    listaProductos.forEach(producto => {
+
+        contenedor.innerHTML += `
+
+            <div class="col mb-5">
+
+                <div class="card h-100">
+
+                    <img
+                        class="card-img-top"
+                        src="http://localhost:3000${producto.imagen}"
+                        alt="${producto.nombre}">
+
+                    <div class="card-body p-4">
+
+                        <div class="text-center">
+
+                            <h5 class="fw-bolder">
+
+                                ${producto.nombre}
+
+                            </h5>
+
+                            L ${Number(producto.precio).toLocaleString("es-HN",{
+                                minimumFractionDigits:2
+                            })}
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+
+                        <div class="d-grid gap-2">
+
+                            <a
+                                class="btn btn-outline-primary"
+                                href="detalle-producto.html?id=${producto.id_producto}">
+
+                                Ver detalle
+
+                            </a>
+
+                            <a
+                                class="btn btn-outline-dark btn-agregar-carrito"
+                                data-id="${producto.id_producto}"
+                                href="#">
+
+                                Agregar al carrito
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+    activarBotones();
+
+}
+
+function activarBotones() {
 
     const botones = document.querySelectorAll(".btn-agregar-carrito");
 
-    botones.forEach(boton=>{
+    botones.forEach(boton => {
 
-        boton.addEventListener("click",(e)=>{
+        boton.addEventListener("click", (e) => {
 
             e.preventDefault();
 
@@ -89,7 +192,7 @@ function activarBotones(){
             const titulo = tarjeta.querySelector("h5").innerText;
 
             const precio = parseFloat(
-                tarjeta.querySelector(".text-center").innerText.replace(/[^0-9.]/g,"")
+                tarjeta.querySelector(".text-center").innerText.replace(/[^0-9.]/g, "")
             );
 
             const imagen = tarjeta.querySelector("img").src;
@@ -100,7 +203,7 @@ function activarBotones(){
                 titulo,
                 precio,
                 imagen,
-                cantidad:1
+                cantidad: 1
 
             });
 

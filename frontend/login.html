@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Iniciar sesión en la tienda" />
+    <title>Iniciar Sesión - TecnoCompras</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+        /* Fondo con imagen y superposición oscura como en Nuestros Productos */
+        .login-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/fondo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 login-bg">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand fw-bold" href="index.html">TecnoCompras</a>
+        </div>
+    </nav>
+
+    <!-- Section de Login -->
+    <section class="py-5 my-auto">
+        <div class="container px-4 px-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    
+                    <!-- Tarjeta de Login -->
+                    <div class="card shadow-lg border-0 rounded-3">
+                        <div class="card-body p-4 p-sm-5">
+                            
+                            <div class="text-center mb-4">
+                                <i class="bi bi-person-circle display-4 text-dark"></i>
+                                <h2 class="fw-bolder mt-2">Iniciar Sesión</h2>
+                                <p class="text-muted">Ingresa tus credenciales para acceder a tu cuenta</p>
+                            </div>
+
+                            <!-- Formulario -->
+                            <form id="formLogin">
+                                
+                                <!-- Correo Electrónico -->
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="nombre@ejemplo.com" required />
+                                    <label for="correo"><i class="bi bi-envelope me-2"></i>Correo electrónico</label>
+                                </div>
+
+                                <!-- Contraseña -->
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required />
+                                    <label for="password"><i class="bi bi-lock me-2"></i>Contraseña</label>
+                                </div>
+
+                                <!-- Opciones extra -->
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe" />
+                                        <label class="form-check-label text-secondary small" for="rememberMe">
+                                            Recordarme
+                                        </label>
+                                    </div>
+                                    <a class="text-decoration-none small text-dark fw-bold" href="#!">¿Olvidaste tu contraseña?</a>
+                                </div>
+
+                                <!-- Botón de Submit -->
+                                <div class="d-grid mb-3">
+                                    <button class="btn btn-dark btn-lg fs-6 fw-bold" type="submit">Ingresar</button>
+                                </div>
+
+                                <hr class="my-4" />
+
+                                <!-- Enlace de Registro -->
+                                <div class="text-center">
+                                    <span class="text-muted small">¿Aún no tienes una cuenta?</span>
+                                    <a class="text-dark fw-bold small text-decoration-none ms-1" href="registro.html">Regístrate aquí</a>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark mt-auto">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; TecnoCompras 2026</p></div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
