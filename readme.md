@@ -1,1 +1,0 @@
-sistema web para la venta de equipo tecnologico llamado tecnocompras

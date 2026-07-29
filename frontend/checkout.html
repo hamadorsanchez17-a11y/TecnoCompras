@@ -48,39 +48,174 @@
             <div class="container px-4 px-lg-5">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4 class="mb-3">Datos de Envío</h4>
-                        <form id="form-checkout">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" required>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" placeholder="correo@ejemplo.com" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Dirección</label>
-                                    <input type="text" class="form-control" placeholder="Colonia, Calle, Casa" required>
-                                </div>
-                            </div>
-                            <hr class="my-4">
-                            <h4 class="mb-3">Método de Pago</h4>
-                            <div class="form-check">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                                <label class="form-check-label" for="credit">Tarjeta de Crédito / Débito</label>
-                            </div>
-                            <div class="form-check mb-4">
-                                <input id="cash" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="cash">Pago contra entrega</label>
-                            </div>
-                            <button type="submit" class="btn btn-dark w-100 btn-lg">Confirmar Pedido</button>
-                        </form>
-                    </div>
+                    <h4 class="mb-3">Datos de Envío</h4>
+
+<form id="form-checkout">
+    <div class="row g-3">
+
+        <div class="col-sm-6">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                required>
+        </div>
+
+        <div class="col-sm-6">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input
+                type="text"
+                class="form-control"
+                id="apellido"
+                required>
+        </div>
+
+        <div class="col-12">
+            <label for="correo" class="form-label">Correo Electrónico</label>
+            <input
+                type="email"
+                class="form-control"
+                id="correo"
+                placeholder="correo@ejemplo.com"
+                required>
+        </div>
+
+        <div class="col-12">
+            <label for="calle" class="form-label">Calle / Colonia</label>
+            <input
+                type="text"
+                class="form-control"
+                id="calle"
+                placeholder="Colonia, Calle, Casa"
+                required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input
+                type="text"
+                class="form-control"
+                id="ciudad"
+                placeholder="Tegucigalpa"
+                required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="departamento" class="form-label">Departamento</label>
+            <input
+                type="text"
+                class="form-control"
+                id="departamento"
+                placeholder="Francisco Morazán"
+                required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="codigo_postal" class="form-label">
+                Código Postal
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="codigo_postal">
+        </div>
+
+        <div class="col-md-6">
+            <label for="referencia" class="form-label">
+                Referencia
+            </label>
+            <input
+                type="text"
+                class="form-control"
+                id="referencia"
+                placeholder="Frente a..."
+            >
+        </div>
+
+    </div>
+
+    <h4 class="mb-3">Método de Pago</h4>
+
+<div class="form-check">
+    <input
+        id="credit"
+        name="paymentMethod"
+        type="radio"
+        class="form-check-input"
+        checked
+        required>
+
+    <label class="form-check-label" for="credit">
+        Tarjeta de Crédito / Débito
+    </label>
+</div>
+
+<div class="form-check mb-4">
+    <input
+        id="cash"
+        name="paymentMethod"
+        type="radio"
+        class="form-check-input"
+        required>
+
+    <label class="form-check-label" for="cash">
+        Pago contra entrega
+    </label>
+</div>
+
+<!-- DATOS DE LA TARJETA -->
+<div id="datosTarjeta" class="mt-4">
+
+    <div class="row g-3">
+
+        <div class="col-12">
+            <label class="form-label">Nombre del titular</label>
+            <input
+                type="text"
+                class="form-control"
+                id="titular">
+        </div>
+
+        <div class="col-12">
+            <label class="form-label">Número de tarjeta</label>
+            <input
+                type="text"
+                class="form-control"
+                id="numeroTarjeta"
+                maxlength="19"
+                placeholder="0000 0000 0000 0000">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Fecha de expiración</label>
+            <input
+                type="month"
+                class="form-control"
+                id="expiracion">
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">CVV</label>
+            <input
+                type="password"
+                class="form-control"
+                id="cvv"
+                maxlength="4">
+        </div>
+
+    </div>
+
+</div>
+
+<button
+    type="submit"
+    class="btn btn-dark w-100 btn-lg mt-4">
+    Confirmar Pedido
+</button>
+
+
+</form>
                     <div class="col-md-4">
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Tu carrito</span>

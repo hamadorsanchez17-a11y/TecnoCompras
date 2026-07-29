@@ -102,10 +102,40 @@ const deleteCart = async (id) => {
     return result;
 };
 
+// Obtener carrito activo del usuario
+const getActiveCart = async (id_usuario) => {
+
+    const [rows] = await pool.query(`
+        SELECT id_carrito
+        FROM carrito
+        WHERE id_usuario = ?
+          AND id_estado_carrito = 1
+        LIMIT 1;
+    `, [id_usuario]);
+
+    return rows[0];
+};
+
+// Crear carrito activo
+const createActiveCart = async (id_usuario) => {
+
+    const [result] = await pool.query(`
+        INSERT INTO carrito(
+            id_usuario,
+            id_estado_carrito
+        )
+        VALUES (?,1);
+    `,[id_usuario]);
+
+    return result.insertId;
+};
 module.exports = {
     getAllCarts,
     getCartById,
     createCart,
     updateCart,
+    deleteCart,
+    getActiveCart,
+    createActiveCart,
     deleteCart
 };

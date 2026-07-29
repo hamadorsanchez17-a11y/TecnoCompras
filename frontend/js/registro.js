@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const passInput = document.getElementById('password');
     const confirmPassInput = document.getElementById('confirm_password');
 
-    formRegistro.addEventListener('submit', function (event) {
+    formRegistro.addEventListener('submit', async function (event) {
         // Detiene el envío predeterminado a PHP
         event.preventDefault();
 
@@ -25,9 +25,44 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPassInput.classList.remove('is-invalid');
         }
 
-        // Si la validación es correcta, redirige a login.html
         if (esValido) {
-            window.location.href = 'login.html';
+
+    try {
+
+        const respuesta = await fetch(
+                    "http://localhost:3000/api/auth/register",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            nombre: document.getElementById("nombre").value,
+                            apellido: document.getElementById("apellido").value,
+                            correo: document.getElementById("correo").value,
+                            password: document.getElementById("password").value,
+                            telefono: document.getElementById("telefono").value
+                        })
+                    }
+                );
+            
+                const data = await respuesta.json();
+            
+                if (!respuesta.ok) {
+                    alert(data.mensaje);
+                    return;
+                }
+            
+                alert(data.mensaje);
+                window.location.href = "login.html";
+            
+            } catch (error) {
+            
+                console.error(error);
+                alert("No se pudo conectar con el servidor.");
+            
+            }
+        
         }
     });
 

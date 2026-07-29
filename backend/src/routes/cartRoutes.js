@@ -19,6 +19,12 @@ router.post(
     cartController.createCart
 );
 
+router.post(
+    "/add-product",
+    verifyToken,
+    cartController.addProduct
+);
+
 router.put(
     "/:id",
     verifyToken,
@@ -32,5 +38,7 @@ router.delete(
     verifyAdmin,
     cartController.deleteCart
 );
+
+
 
 module.exports = router;

@@ -110,10 +110,38 @@ const deleteCartDetail = async (id) => {
     return result;
 };
 
+// Buscar un producto dentro del carrito
+const findProductInCart = async (id_carrito, id_producto) => {
+
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM carrito_detalle
+        WHERE id_carrito = ?
+          AND id_producto = ?
+        LIMIT 1;
+    `, [id_carrito, id_producto]);
+
+    return rows[0];
+};
+
+// Incrementar la cantidad del producto
+const increaseQuantity = async (id_detalle, cantidad) => {
+
+    const [result] = await pool.query(`
+        UPDATE carrito_detalle
+        SET cantidad = cantidad + ?
+        WHERE id_detalle = ?;
+    `, [cantidad, id_detalle]);
+
+    return result;
+};
+
 module.exports = {
     getAllCartDetails,
     getCartDetailById,
     createCartDetail,
     updateCartDetail,
-    deleteCartDetail
+    deleteCartDetail,
+    findProductInCart,
+    increaseQuantity
 };

@@ -21,10 +21,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         mostrarProductos(listaInicial);
 
         // =========================
-        // BUSCADOR
+        // ELEMENTOS DE FILTRO
         // =========================
         const inputBuscar = document.getElementById("buscarProducto");
+        const filtroCategoria = document.getElementById("filtroCategoria");
+        const ordenar = document.getElementById("ordenarPrecio");
+        const btnLimpiar = document.getElementById("btnLimpiar");
 
+        // =========================
+        // BUSCADOR
+        // =========================
         if (inputBuscar) {
 
             inputBuscar.addEventListener("input", aplicarFiltros);
@@ -32,10 +38,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // =========================
+        // CATEGORÍA
+        // =========================
+        if (filtroCategoria) {
+
+            filtroCategoria.addEventListener("change", aplicarFiltros);
+
+        }
+
+        // =========================
         // ORDENAR
         // =========================
-        const ordenar = document.getElementById("ordenarPrecio");
-
         if (ordenar) {
 
             ordenar.addEventListener("change", aplicarFiltros);
@@ -45,20 +58,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =========================
         // LIMPIAR
         // =========================
-        const btnLimpiar = document.getElementById("btnLimpiar");
-
         if (btnLimpiar) {
 
             btnLimpiar.addEventListener("click", () => {
-
+            
                 if (inputBuscar) inputBuscar.value = "";
-                if (ordenar) ordenar.value = "";
-
+            
+                if (filtroCategoria)
+                    filtroCategoria.value = "";
+            
+                if (ordenar)
+                    ordenar.value = "";
+            
                 mostrarProductos(productosOriginales);
 
             });
-
-        }
+        
+        }   
 
     } catch (error) {
 
@@ -73,6 +89,7 @@ function aplicarFiltros() {
     let lista = [...productosOriginales];
 
     const inputBuscar = document.getElementById("buscarProducto");
+    const filtroCategoria = document.getElementById("filtroCategoria");
     const ordenar = document.getElementById("ordenarPrecio");
 
     // Buscar
@@ -85,6 +102,25 @@ function aplicarFiltros() {
         );
 
     }
+
+    // Categoría
+        if (filtroCategoria && filtroCategoria.value !== "") {
+
+            const normalizar = (texto) =>
+                texto
+                    .toString()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLowerCase()
+                    .trim();
+
+            const categoriaSeleccionada = normalizar(filtroCategoria.value);
+
+            lista = lista.filter(producto =>
+                normalizar(producto.categoria) === categoriaSeleccionada
+            );
+        
+        }    
 
     // Ordenar
     if (ordenar) {

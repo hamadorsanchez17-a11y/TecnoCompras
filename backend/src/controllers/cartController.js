@@ -124,3 +124,38 @@ exports.deleteCart = async (req, res) => {
     }
 
 };
+
+// Agregar producto al carrito
+exports.addProduct = async (req, res) => {
+
+    console.log("BODY:", req.body);
+console.log("USUARIO:", req.usuario);
+
+    try {
+
+        const idUsuario = req.usuario.id;
+
+        const {
+            id_producto,
+            cantidad,
+            precio
+        } = req.body;
+
+        const resultado = await cartService.addProduct(
+            idUsuario,
+            id_producto,
+            cantidad,
+            precio
+        );
+
+        res.status(201).json(resultado);
+
+    } catch (error) {
+
+        res.status(500).json({
+            mensaje: error.message
+        });
+
+    }
+
+};

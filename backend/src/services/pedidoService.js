@@ -10,11 +10,13 @@ class PedidoService {
 
             await conexion.beginTransaction();
 
-            // Obtener carrito activo
             const carrito = await PedidoModel.obtenerCarritoActivo(
                 conexion,
                 idUsuario
             );
+
+            console.log("Usuario:", idUsuario);
+            console.log("Carrito BD:", carrito);
 
             if (carrito.length === 0) {
                 throw new Error("El carrito está vacío.");

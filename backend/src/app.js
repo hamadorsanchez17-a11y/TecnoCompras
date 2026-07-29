@@ -15,6 +15,8 @@ const orderDetailRoutes = require("./routes/orderDetailRoutes");
 const checkoutRoutes = require("./routes/checkoutRoutes");
 const orderStatusRoutes = require("./routes/orderStatusRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
+const direccionRoutes = require("./routes/direccionRoutes");
+
 
 
 app.use(cors());
@@ -29,12 +31,14 @@ app.use("/api/productos", productRoutes);
 app.use("/api/categorias", categoryRoutes);
 app.use("/api/marcas", brandRoutes);
 app.use("/api/inventario", inventoryRoutes);
-app.use("/api/carritos", cartRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/carrito-detalle", cartDetailRoutes);
 app.use("/api/pedido-detalle", orderDetailRoutes);
 app.use("/api/checkout", checkoutRoutes);
 app.use("/api/order-status", orderStatusRoutes);
 app.use("/api/pedidos", pedidoRoutes);
+app.use("/api/direcciones", direccionRoutes);
+
 
 app.get("/", (req, res) => {
     res.send("Bienvenidos a la API de TecnoCompras");

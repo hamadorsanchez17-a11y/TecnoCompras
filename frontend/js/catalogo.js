@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para insertar o incrementar la cantidad de un producto
-function agregarAlCarrito(productoNuevo) {
+async function agregarAlCarrito(productoNuevo) {
     let carrito = obtenerCarrito();
     const indice = carrito.findIndex(item => item.id === productoNuevo.id);
 
@@ -47,6 +47,27 @@ function agregarAlCarrito(productoNuevo) {
     } else {
         // Si no estaba, agregarlo
         carrito.push(productoNuevo);
+    }
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        try {
+            await fetch("http://localhost:3000/api/cart/add-product", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    id_producto: Number(productoNuevo.id),
+                    cantidad: productoNuevo.cantidad,
+                    precio: productoNuevo.precio
+                })
+            });
+        } catch (error) {
+            console.error("Error al guardar el carrito en el servidor:", error);
+        }
     }
 
     guardarCarrito(carrito);
