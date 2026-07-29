@@ -443,26 +443,32 @@ async function eliminarInventario(id) {
 // ===============================
 // PEDIDOS
 // ===============================
-
 async function obtenerPedidos() {
-
-    const response = await fetch(`${API_URL}/pedidos`);
-
-    return await response.json();
-
+    const response = await fetch(`${API_URL}/pedidos/admin`, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+    
+    const data = await response.json();
+    console.log(data);
+    return data.pedidos;
 }
 
 async function obtenerPedidoPorId(id) {
+    const response = await fetch(`${API_URL}/pedidos/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${getToken()}`
+        }
+    });
 
-    const response = await fetch(`${API_URL}/pedidos/${id}`);
-
-    return await response.json();
-
+    const data = await response.json();
+    return data;
 }
 
 async function actualizarPedido(id, pedido) {
 
-    const response = await fetch(`${API_URL}/pedidos/${id}`, {
+    const response = await fetch(`${API_URL}/pedidos/${id}/estado`, {
 
         method: "PUT",
 

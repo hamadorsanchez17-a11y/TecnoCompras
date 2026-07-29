@@ -39,7 +39,7 @@ async function cargarPedidos() {
                 <tr>
 
                     <td>${pedido.id_pedido}</td>
-                    <td>${pedido.nombre}</td>
+                    <td>${pedido.cliente}</td>
                     <td>${pedido.fecha}</td>
                     <td>L. ${Number(pedido.total).toFixed(2)}</td>
                     <td>${pedido.estado}</td>
@@ -101,7 +101,11 @@ async function verDetallePedido(id) {
 
     try {
 
-        const pedido = await obtenerPedidoPorId(id);
+        const respuesta = await obtenerPedidoPorId(id);
+
+        console.log("Respuesta API:", respuesta);
+
+        const pedido = respuesta.pedido;
 
         pedidoActual = pedido.id_pedido;
 
@@ -120,18 +124,16 @@ async function verDetallePedido(id) {
 
         tablaProductosPedido.innerHTML = "";
 
-        if (pedido.productos && pedido.productos.length > 0) {
+        if (respuesta.productos && respuesta.productos.length > 0) {
 
-            pedido.productos.forEach(producto => {
+            respuesta.productos.forEach(producto => {
 
                 tablaProductosPedido.innerHTML += `
                     <tr>
-
                         <td>${producto.nombre}</td>
                         <td>${producto.cantidad}</td>
                         <td>${producto.precio}</td>
-                        <td>${producto.subtotal}</td>
-
+                        <td>${(producto.cantidad * producto.precio).toFixed(2)}</td>
                     </tr>
                 `;
 
@@ -141,41 +143,40 @@ async function verDetallePedido(id) {
 
         modalPedido.modal("show");
 
-    } catch (error) {
+        } catch (error) {
 
-        console.error(error);
+            console.error(error);
 
-        alert("Error al obtener el detalle del pedido.");
+            alert("Error al obtener el detalle del pedido.");
 
-    }
+        }
 
-}
+            }
 
-async function guardarCambiosPedido() {
+    async function guardarCambiosPedido() {
+            
+                try {
+                
+                    if (!pedidoActual) return;
 
-    try {
+             const detalle = await obtenerPedidoPorId(pedidoActual);
+            const pedido = detalle.pedido;
+                
+            const datosActualizados = {
+                id_usuario: pedido.id_usuario,
+                id_direccion: pedido.id_direccion || 1,
+                id_estado_pedido: estadoPedido.value,
+                subtotal: pedido.subtotal,
+                impuesto: pedido.impuesto,
+                total: pedido.total
+            };
 
-        if (!pedidoActual) return;
+            const respuesta = await actualizarPedido(
+                pedidoActual,
+                datosActualizados
+            );
 
-        const pedido = await obtenerPedidoPorId(pedidoActual);
-
-        const datosActualizados = {
-
-            id_usuario: pedido.id_usuario,
-            id_direccion: pedido.id_direccion || 1,
-            id_estado_pedido: estadoPedido.value,
-            subtotal: pedido.subtotal,
-            impuesto: pedido.impuesto,
-            total: pedido.total
-
-        };
-
-        const respuesta = await actualizarPedido(
-            pedidoActual,
-            datosActualizados
-        );
-
-        alert(respuesta.mensaje);
+            alert(respuesta.mensaje);
 
         modalPedido.modal("hide");
 

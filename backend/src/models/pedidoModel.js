@@ -214,17 +214,31 @@ static async obtenerDetallePedido(
     const [rows] = await conexion.query(`
         SELECT
             p.id_pedido,
+            p.id_usuario,
+            p.id_direccion,
+            p.id_estado_pedido,
+            CONCAT(u.nombre, ' ', u.apellido) AS nombre,
+            u.correo,
             p.fecha,
             p.subtotal,
             p.impuesto,
             p.total,
             ep.nombre AS estado,
             mp.nombre AS metodo_pago,
-            d.direccion,
-            pr.nombre,
+            CONCAT(
+                d.calle,
+                ', ',
+                d.ciudad,
+                ', ',
+                d.departamento
+            ) AS direccion,
+            pr.nombre as producto,
             pd.cantidad,
             pd.precio
         FROM pedido p
+
+        INNER JOIN usuario u
+            ON p.id_usuario = u.id_usuario
 
         INNER JOIN estado_pedido ep
             ON p.id_estado_pedido = ep.id_estado_pedido
@@ -245,7 +259,7 @@ static async obtenerDetallePedido(
             ON pd.id_producto = pr.id_producto
 
         WHERE p.id_pedido = ?
-          AND p.id_usuario = ?
+          AND p.id_usuario = ?;
     `, [
         idPedido,
         idUsuario
@@ -262,31 +276,46 @@ static async obtenerPedidoPorId(
 ) {
 
     const [rows] = await conexion.query(`
-        SELECT
-            p.id_pedido,
-            p.fecha,
-            p.subtotal,
-            p.impuesto,
-            p.total,
-            ep.nombre AS estado,
-            mp.nombre AS metodo_pago,
-            d.direccion
-        FROM pedido p
-
-        INNER JOIN estado_pedido ep
-            ON p.id_estado_pedido = ep.id_estado_pedido
-
-        INNER JOIN pago pa
-            ON p.id_pedido = pa.id_pedido
-
-        INNER JOIN metodo_pago mp
-            ON pa.id_metodo = mp.id_metodo
-
-        INNER JOIN direccion d
-            ON p.id_direccion = d.id_direccion
-
-        WHERE p.id_pedido = ?
-        AND p.id_usuario = ?;
+            SELECT
+                p.id_pedido,
+                p.id_usuario,
+                p.id_direccion,
+                p.id_estado_pedido,
+                CONCAT(u.nombre, ' ', u.apellido) AS nombre,
+                u.correo,
+                p.fecha,
+                p.subtotal,
+                p.impuesto,
+                p.total,
+                ep.nombre AS estado,
+                mp.nombre AS metodo_pago,
+                CONCAT(
+                    d.calle,
+                    ', ',
+                    d.ciudad,
+                    ', ',
+                    d.departamento
+                ) AS direccion
+            FROM pedido p
+                
+            INNER JOIN usuario u
+                ON p.id_usuario = u.id_usuario
+                
+            INNER JOIN estado_pedido ep
+                ON p.id_estado_pedido = ep.id_estado_pedido
+                
+            INNER JOIN pago pa
+                ON p.id_pedido = pa.id_pedido
+                
+            INNER JOIN metodo_pago mp
+                ON pa.id_metodo = mp.id_metodo
+                
+            INNER JOIN direccion d
+                ON p.id_direccion = d.id_direccion
+                
+            WHERE p.id_pedido = ?
+              AND p.id_usuario = ?;
+     
     `,[idPedido,idUsuario]);
 
     return rows[0];

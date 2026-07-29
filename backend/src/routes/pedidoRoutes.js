@@ -11,22 +11,16 @@ router.get(
 );
 
 router.get(
-    "/:id",
-    verifyToken,
-    PedidoController.obtenerDetallePedido
-);
-
-router.get(
-    "/:id",
-    verifyToken,
-    PedidoController.obtenerDetallePedido
-);
-
-router.get(
     "/admin",
     verifyToken,
     verifyAdmin,
     PedidoController.obtenerTodosLosPedidos
+);
+
+router.get(
+    "/:id",
+    verifyToken,
+    PedidoController.obtenerDetallePedido
 );
 
 router.put(
@@ -41,6 +35,5 @@ router.post(
     verifyToken,
     PedidoController.crearPedido
 );
-
 
 module.exports = router;

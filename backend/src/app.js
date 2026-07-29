@@ -10,10 +10,10 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const brandRoutes = require("./routes/brandRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
 const cartRoutes = require("./routes/cartRoutes");
-const cartDetailRoutes = require("./routes/cartDetailRoutes");
-const orderDetailRoutes = require("./routes/orderDetailRoutes");
+const cartDetailRoutes = require("./routes/cartDetailRoutes");  
+const orderDetailRoutes = require("./routes/pedidoDetalleRoutes");
 const checkoutRoutes = require("./routes/checkoutRoutes");
-const orderStatusRoutes = require("./routes/orderStatusRoutes");
+const orderStatusRoutes = require("./routes/estadoPedidoRuta");
 const pedidoRoutes = require("./routes/pedidoRoutes");
 const direccionRoutes = require("./routes/direccionRoutes");
 
